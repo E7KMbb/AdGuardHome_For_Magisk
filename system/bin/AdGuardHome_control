@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-AdGuardHome_path="/data/adb/modules/AdGuardHome/core"
+AdGuardHome_path="/data/adb/modules/AdGuardHome_For_Magisk/core"
 
 start() {
     sh ${AdGuardHome_path}/start.sh

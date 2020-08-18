@@ -1,0 +1,30 @@
+#!/system/bin/sh
+
+AdGuardHome_path="/data/adb/modules/AdGuardHome/core"
+
+start() {
+    sh ${AdGuardHome_path}/start.sh
+}
+
+stop() {
+    sh ${AdGuardHome_path}/stop.sh
+}
+
+restart() {
+   sh ${AdGuardHome_path}/restart.sh
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    restart
+    ;;
+  *)
+    echo "$0:  usage:  $0 { start | stop | restart }"
+    ;;
+esac

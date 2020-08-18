@@ -78,14 +78,55 @@ REPLACE="
 # Install
 ##########################################################################################
 
-# Extract $ZIPFILE to $MODPATH
+if [ $BOOTMODE ! = true ]; then
+   abort "! Please install in Magisk Manager"
+fi
+
 ui_print "- Extracting module files"
 unzip -o "$ZIPFILE" -x 'META-INF/*' -d $MODPATH >&2
+
+AdGuardHome_link="https://github.com/AdguardTeam/AdGuardHome/releases"
+latest_version=`curl -k -s -I "${AdGuardHome_link}/latest" | grep -i location | grep -o "tag.*" | grep -o "v[0-9.]*"`
+if [ "${latest_version}" = "" ] ; then
+  abort "Error: Connect AdGuardHome download link failed."
+fi
+ui_print "- Download latest AdGuardHome ${latest_version}-${ARCH}"
+case "${ARCH}" in
+  arm)
+    download_AdGuardHome_link="${AdGuardHome_link}/download/${latest_version}/AdGuardHome_linux_armv7.tar.gz"
+    ;;
+  arm64)
+    download_AdGuardHome_link="${AdGuardHome_link}/download/${latest_version}/AdGuardHome_linux_arm64.tar.gz"
+    ;;
+  x86)
+    download_AdGuardHome_link="${AdGuardHome_link}/download/${latest_version}/AdGuardHome_linux_386.tar.gz"
+    ;;
+  x64)
+    download_AdGuardHome_link="${AdGuardHome_link}/download/${latest_version}/AdGuardHome_linux_amd64.tar.gz"
+    ;;
+esac
+curl "${download_AdGuardHome_link}" -k -L -o "$MODPATH/AdGuardHome.tar.gz" >&2
+if [ "$?" != "0" ] ; then
+  abort "Error: Download AdGuardHome core failed."
+fi
+tar zxvf $MODPATH/AdGuardHome.tar.gz -C $MODPATH >&2
+mv -f $MODPATH/AdGuardHome/AdGuardHome $MODPATH/core/AdGuardHome
+
+ui_print "- Generate module.prop"
+rm -rf $MODPATH/module.prop
+touch $MODPATH/module.prop
+echo "id=AdGuardHome_For_Magisk" > $MODPATH/module.prop
+echo "name=AdGuardHome For Magisk" >> $MODPATH/module.prop
+echo -n "version=" >> $MODPATH/module.prop
+echo ${latest_version} >> $MODPATH/module.prop
+echo "versionCode=$(date +%Y%m%d)" >> $MODPATH/module.prop
+echo "author=Module by AiSauce.Core by AdGuardTeam." >> $MODPATH/module.prop
+echo "description=Network-wide ads & trackers blocking DNS server." >> $MODPATH/module.prop
 
 # Delete extra files
 rm -rf \
 $MODPATH/system/placeholder $MODPATH/customize.sh \
-$MODPATH/*.md $MODPATH/.git* $MODPATH/LICENSE 2>/dev/null
+$MODPATH/*.md $MODPATH/.git* $MODPATH/LICENSE $MODPATH/AdGuardHome $MODPATH/AdGuardHome.tar.gz 5>/dev/null
 
 ##########################################################################################
 # Permissions

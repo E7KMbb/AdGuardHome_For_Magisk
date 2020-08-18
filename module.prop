@@ -1,6 +1,6 @@
-id=AdGuardHome
-name=AdGuardHome
+id=AdGuardHome_For_Magisk
+name=AdGuardHome For Magisk
 version=v1
 versionCode=1
-author=module AiSauce.core AdGuardTeam.
-description=AdGuardHome
+author=Module by AiSauce.Core by AdGuardTeam.
+description=Network-wide ads & trackers blocking DNS server.

@@ -1,6 +1,6 @@
 # AdGuardHome Magisk Module
  
-  This is a AdGuardHome module for Magisk, and includes binaries for arm64.
+  This is a AdGuardHome module for Magisk.
 ## Included
 * [AdGuardHome](<https://github.com/AdguardTeam/AdGuardHome/releases/latest>)
 * [magisk-module-installer](<https://github.com/topjohnwu/magisk-module-installer>)
@@ -17,10 +17,23 @@ You can download the release installer zip file and install it via the Magisk Ma
 
 * After startup, please enter the following address in the browser to configure.
 
-* `127.0.0.1:3000`
+* `http://127.0.0.1:3000`
 
-* `0.0.0.0:3000`
+* `http://0.0.0.0:3000`
+
+* `http://[::1]:3000`
+
+* `http://192.168.1.101:3000`
+
+* `http://198.18.0.1:3000`
 
 ## Uninstall
 
 * Uninstall the module via Magisk Manager App.
+
+## TODO
+ 
+- [x] Boot auto start
+- [x] Online download
+- [ ] Choice of stable or canary
+- [ ] Full local mode

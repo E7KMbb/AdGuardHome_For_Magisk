@@ -11,6 +11,10 @@ You can download the release installer zip file and install it via the Magisk Ma
 
 ## Usage
 
+### Before use
+
+1.install `busybox` 2.Make sure you have `curl` instruction set
+
 ### Manage service start / stop
 
 * Use the `AdGuardHome_control` command under andoid termux, the available parameters start|stop|restart, for example, the command for service startup is `AdGuardHome_control start`.
@@ -30,10 +34,3 @@ You can download the release installer zip file and install it via the Magisk Ma
 ## Uninstall
 
 * Uninstall the module via Magisk Manager App.
-
-## TODO
- 
-- [x] Boot auto start
-- [x] Online download
-- [ ] Choice of stable or canary
-- [ ] Full local mode
